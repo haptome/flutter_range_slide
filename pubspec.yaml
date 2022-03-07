@@ -1,7 +1,7 @@
 name: flutter_range_slider
 description: Simple smooth animations, providing a nice and cleanUI/UX Range Slider.
 version: 0.0.1
-homepage:
+homepage: https://github.com/haptome/flutter_range_slide
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
