@@ -64,7 +64,7 @@ import 'package:flutter_range_slider/flutter_range_slider.dart';
 
 ```
 
-The constructor has 17 attributes related to the Widget:
+The constructor has an attributes related to the Widget:
 
 - `values`: A list of tabs to display, ie `Min Value`and  `Max value`
 - `rangeSlider`:bool to convert the slider to Range Slider if not it's just Slider.
