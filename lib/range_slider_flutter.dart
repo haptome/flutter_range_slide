@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class FlutterRangeSlider extends StatefulWidget {
+class RangeSliderFlutter extends StatefulWidget {
   final Key? key;
   final Axis axis;
   final double? handlerWidth;
   final double? handlerHeight;
-  final FlutterRangeSliderHandler? handler;
-  final FlutterRangeSliderHandler? rightHandler;
+  final RangeSliderFlutterHandler? handler;
+  final RangeSliderFlutterHandler? rightHandler;
   final Function(int handlerIndex, dynamic lowerValue, dynamic upperValue)?
       onDragStarted;
   final Function(int handlerIndex, dynamic lowerValue, dynamic upperValue)?
@@ -17,22 +17,22 @@ class FlutterRangeSlider extends StatefulWidget {
   final double? min;
   final double? max;
   final List<double> values;
-  final List<FlutterRangeSliderFixedValue>? fixedValues;
+  final List<RangeSliderFlutterFixedValue>? fixedValues;
   final bool rangeSlider;
   final bool rtl;
   final bool jump;
   final bool selectByTap;
-  final List<FlutterRangeSliderIgnoreSteps> ignoreSteps;
+  final List<RangeSliderFlutterIgnoreSteps> ignoreSteps;
   final bool disabled;
   final double? touchSize;
   final bool visibleTouchArea;
   final double minimumDistance;
   final double maximumDistance;
-  final FlutterRangeSliderHandlerAnimation handlerAnimation;
-  final FlutterRangeSliderTooltip? tooltip;
-  final FlutterRangeSliderTrackBar trackBar;
-  final FlutterRangeSliderStep step;
-  final FlutterRangeSliderHatchMark? hatchMark;
+  final RangeSliderFlutterHandlerAnimation handlerAnimation;
+  final RangeSliderFlutterTooltip? tooltip;
+  final RangeSliderFlutterTrackBar trackBar;
+  final RangeSliderFlutterStep step;
+  final RangeSliderFlutterHatchMark? hatchMark;
   final bool centeredOrigin;
   final bool lockHandlers;
   final double? lockDistance;
@@ -43,7 +43,7 @@ class FlutterRangeSlider extends StatefulWidget {
   final double? fontSize;
   final Color? textBackgroundColor;
 
-  FlutterRangeSlider(
+  RangeSliderFlutter(
       {this.key,
       this.min,
       this.max,
@@ -67,10 +67,10 @@ class FlutterRangeSlider extends StatefulWidget {
       this.minimumDistance = 0,
       this.maximumDistance = 0,
       this.tooltip,
-      this.trackBar = const FlutterRangeSliderTrackBar(),
-      this.handlerAnimation = const FlutterRangeSliderHandlerAnimation(),
+      this.trackBar = const RangeSliderFlutterTrackBar(),
+      this.handlerAnimation = const RangeSliderFlutterHandlerAnimation(),
       this.selectByTap = true,
-      this.step = const FlutterRangeSliderStep(),
+      this.step = const RangeSliderFlutterStep(),
       this.hatchMark,
       this.centeredOrigin = false,
       this.lockHandlers = false,
@@ -118,10 +118,10 @@ class FlutterRangeSlider extends StatefulWidget {
         super(key: key);
 
   @override
-  _FlutterRangeSliderState createState() => _FlutterRangeSliderState();
+  _RangeSliderFlutterState createState() => _RangeSliderFlutterState();
 }
 
-class _FlutterRangeSliderState extends State<FlutterRangeSlider>
+class _RangeSliderFlutterState extends State<RangeSliderFlutter>
     with TickerProviderStateMixin {
   bool __isInitCall = true;
 
@@ -164,7 +164,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
   double _containerLeft = 0;
   double _containerTop = 0;
 
-  late FlutterRangeSliderTooltip _tooltipData;
+  late RangeSliderFlutterTooltip _tooltipData;
 
   late List<Function> _positionedItems;
 
@@ -195,8 +195,8 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
   double? _widgetStep;
   double? _widgetMin;
   double? _widgetMax;
-  List<FlutterRangeSliderIgnoreSteps> _ignoreSteps = [];
-  List<FlutterRangeSliderFixedValue> _fixedValues = [];
+  List<RangeSliderFlutterIgnoreSteps> _ignoreSteps = [];
+  List<RangeSliderFlutterFixedValue> _fixedValues = [];
 
   List<Positioned> _points = [];
 
@@ -230,7 +230,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
   }
 
   @override
-  void didUpdateWidget(FlutterRangeSlider oldWidget) {
+  void didUpdateWidget(RangeSliderFlutter oldWidget) {
     __isInitCall = false;
 
     initMethod();
@@ -395,13 +395,13 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
 
     Offset? animationFinish;
     switch (_tooltipData.direction) {
-      case FlutterRangeSliderTooltipDirection.top:
+      case RangeSliderFlutterTooltipDirection.top:
         animationFinish = Offset(0, -1);
         break;
-      case FlutterRangeSliderTooltipDirection.left:
+      case RangeSliderFlutterTooltipDirection.left:
         animationFinish = Offset(-1, 0);
         break;
-      case FlutterRangeSliderTooltipDirection.right:
+      case RangeSliderFlutterTooltipDirection.right:
         animationFinish = Offset(1, 0);
         break;
       default:
@@ -455,7 +455,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
       widget.trackBar.activeTrackBarHeight
     ].reduce(max);
 
-    FlutterRangeSliderHatchMark hatchMark = FlutterRangeSliderHatchMark();
+    RangeSliderFlutterHatchMark hatchMark = RangeSliderFlutterHatchMark();
     hatchMark.disabled = widget.hatchMark!.disabled;
     hatchMark.density = widget.hatchMark!.density;
     hatchMark.linesDistanceFromTrackBar =
@@ -463,17 +463,17 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
     hatchMark.labelsDistanceFromTrackBar =
         widget.hatchMark!.labelsDistanceFromTrackBar ?? 0;
     hatchMark.smallLine = widget.hatchMark!.smallLine ??
-        FlutterRangeSliderSizedBox(
+        RangeSliderFlutterSizedBox(
             height: 5,
             width: 1,
             decoration: BoxDecoration(color: Colors.black45));
     hatchMark.bigLine = widget.hatchMark!.bigLine ??
-        FlutterRangeSliderSizedBox(
+        RangeSliderFlutterSizedBox(
             height: 9,
             width: 2,
             decoration: BoxDecoration(color: Colors.black45));
     hatchMark.labelBox = widget.hatchMark!.labelBox ??
-        FlutterRangeSliderSizedBox(height: 50, width: 50);
+        RangeSliderFlutterSizedBox(height: 50, width: 50);
     hatchMark.labels = widget.hatchMark!.labels ?? null;
     hatchMark.linesAlignment = widget.hatchMark!.linesAlignment;
     hatchMark.displayLines = widget.hatchMark!.displayLines ?? false;
@@ -494,14 +494,14 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
       Alignment linesAlignment;
       if (widget.axis == Axis.horizontal) {
         if (hatchMark.linesAlignment ==
-            FlutterRangeSliderHatchMarkAlignment.left) {
+            RangeSliderFlutterHatchMarkAlignment.left) {
           linesAlignment = Alignment.bottomCenter;
         } else {
           linesAlignment = Alignment.topCenter;
         }
       } else {
         if (hatchMark.linesAlignment ==
-            FlutterRangeSliderHatchMarkAlignment.left) {
+            RangeSliderFlutterHatchMarkAlignment.left) {
           linesAlignment = Alignment.centerRight;
         } else {
           linesAlignment = Alignment.centerLeft;
@@ -510,7 +510,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
 
       Widget barLine;
       for (int p = 0; p <= percent; p++) {
-        FlutterRangeSliderSizedBox? barLineBox = hatchMark.smallLine;
+        RangeSliderFlutterSizedBox? barLineBox = hatchMark.smallLine;
 
         if (p % 5 - 1 == -1) {
           barLineBox = hatchMark.bigLine;
@@ -539,7 +539,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
 //        left = (p * distance) + _handlersPadding - labelBoxHalfSize - 0.5;
           linesLeft = (p * distance) + _handlersPadding - 0.75;
           if (hatchMark.linesAlignment ==
-              FlutterRangeSliderHatchMarkAlignment.right) {
+              RangeSliderFlutterHatchMarkAlignment.right) {
             linesTop = _containerHeight! / 2 + maxTrackBarHeight / 2 + 2;
             linesBottom = _containerHeight! / 2 - maxTrackBarHeight - 15;
           } else {
@@ -547,14 +547,14 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
             linesBottom = _containerHeight! / 2 + maxTrackBarHeight / 2 + 2;
           }
           if (hatchMark.linesAlignment ==
-              FlutterRangeSliderHatchMarkAlignment.left)
+              RangeSliderFlutterHatchMarkAlignment.left)
             linesBottom += hatchMark.linesDistanceFromTrackBar!;
           else
             linesTop += hatchMark.linesDistanceFromTrackBar!;
         } else {
           linesTop = (p * distance) + _handlersPadding - 0.5;
           if (hatchMark.linesAlignment ==
-              FlutterRangeSliderHatchMarkAlignment.right) {
+              RangeSliderFlutterHatchMarkAlignment.right) {
             linesLeft = _containerWidth! / 2 + maxTrackBarHeight / 2 + 2;
             linesRight = _containerWidth! / 2 - maxTrackBarHeight - 15;
           } else {
@@ -562,7 +562,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
             linesRight = _containerWidth! / 2 + maxTrackBarHeight / 2 + 2;
           }
           if (hatchMark.linesAlignment ==
-              FlutterRangeSliderHatchMarkAlignment.left)
+              RangeSliderFlutterHatchMarkAlignment.left)
             linesRight += hatchMark.linesDistanceFromTrackBar!;
           else
             linesLeft += hatchMark.linesDistanceFromTrackBar!;
@@ -583,7 +583,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
       double labelBoxHalfSize;
       double? top, left, bottom, right;
       double? tr;
-      for (FlutterRangeSliderHatchMarkLabel markLabel in hatchMark.labels!) {
+      for (RangeSliderFlutterHatchMarkLabel markLabel in hatchMark.labels!) {
         label = markLabel.label;
         tr = markLabel.percent;
         labelBoxHalfSize = 0;
@@ -693,7 +693,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
       _widgetMin = 0;
 
       List<double> fixedValuesIndices = [];
-      for (FlutterRangeSliderFixedValue fixedValue in widget.fixedValues!) {
+      for (RangeSliderFlutterFixedValue fixedValue in widget.fixedValues!) {
         fixedValuesIndices.add(fixedValue.percent!.toDouble());
       }
 
@@ -702,7 +702,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
       List<double> fixedV = [];
       for (double fixedPercent = 0; fixedPercent <= 100; fixedPercent++) {
         dynamic fValue = '';
-        for (FlutterRangeSliderFixedValue fixedValue in widget.fixedValues!) {
+        for (RangeSliderFlutterFixedValue fixedValue in widget.fixedValues!) {
           if (fixedValue.percent == fixedPercent.toInt()) {
             fixedValuesIndices.add(fixedValue.percent!.toDouble());
             fValue = fixedValue.value;
@@ -711,14 +711,14 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
             if (fixedPercent > lowerIgnoreBound + 1 || lowerIgnoreBound == 0) {
               if (lowerIgnoreBound > 0) lowerIgnoreBound += 1;
               upperIgnoreBound = fixedPercent - 1;
-              _ignoreSteps.add(FlutterRangeSliderIgnoreSteps(
+              _ignoreSteps.add(RangeSliderFlutterIgnoreSteps(
                   from: lowerIgnoreBound, to: upperIgnoreBound));
             }
             lowerIgnoreBound = fixedPercent;
             break;
           }
         }
-        _fixedValues.add(FlutterRangeSliderFixedValue(
+        _fixedValues.add(RangeSliderFlutterFixedValue(
             percent: fixedPercent.toInt(), value: fValue));
         if (fValue.toString().isNotEmpty) {
           fixedV.add(fixedPercent);
@@ -729,7 +729,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
           _findBiggestIgnorePoint(ignoreBeyondBoundaries: true);
       if (!fixedV.contains(100)) {
         _ignoreSteps.add(
-            FlutterRangeSliderIgnoreSteps(from: biggestPoint! + 1, to: 101));
+            RangeSliderFlutterIgnoreSteps(from: biggestPoint! + 1, to: 101));
       }
     } else {
       _realMax = _widgetMax! - _widgetMin!;
@@ -748,12 +748,12 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
       _rightHandlerWidget,
     ];
 
-    FlutterRangeSliderTooltip widgetTooltip =
-        widget.tooltip ?? FlutterRangeSliderTooltip();
+    RangeSliderFlutterTooltip widgetTooltip =
+        widget.tooltip ?? RangeSliderFlutterTooltip();
 
-    _tooltipData = FlutterRangeSliderTooltip();
+    _tooltipData = RangeSliderFlutterTooltip();
     _tooltipData.boxStyle = widgetTooltip.boxStyle ??
-        FlutterRangeSliderTooltipBox(
+        RangeSliderFlutterTooltipBox(
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.black12, width: 0.5),
                 color: widget.textBackgroundColor));
@@ -767,7 +767,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
     _tooltipData.disabled = widgetTooltip.disabled ?? false;
     _tooltipData.disableAnimation = widgetTooltip.disableAnimation ?? false;
     _tooltipData.direction =
-        widgetTooltip.direction ?? FlutterRangeSliderTooltipDirection.top;
+        widgetTooltip.direction ?? RangeSliderFlutterTooltipDirection.top;
     _tooltipData.positionOffset = widgetTooltip.positionOffset ?? null;
     _tooltipData.format = widgetTooltip.format ?? null;
     _tooltipData.custom = widgetTooltip.custom ?? null;
@@ -847,8 +847,8 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
 
   void _generateHandler() {
     /*Right Handler Data*/
-    FlutterRangeSliderHandler inputRightHandler =
-        widget.rightHandler ?? FlutterRangeSliderHandler();
+    RangeSliderFlutterHandler inputRightHandler =
+        widget.rightHandler ?? RangeSliderFlutterHandler();
     inputRightHandler.child ??= Icon(
         (widget.axis == Axis.horizontal)
             ? Icons.chevron_left
@@ -1083,7 +1083,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
         return false;
       }
 
-      for (FlutterRangeSliderIgnoreSteps steps in _ignoreSteps) {
+      for (RangeSliderFlutterIgnoreSteps steps in _ignoreSteps) {
         if (((!widget.rtl) &&
                 (getValueByPositionIgnoreOffset(__axisPosTmp!) >
                         steps.from! - _widgetStep! / 2 &&
@@ -1344,7 +1344,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
         return false;
       }
 
-      for (FlutterRangeSliderIgnoreSteps steps in _ignoreSteps) {
+      for (RangeSliderFlutterIgnoreSteps steps in _ignoreSteps) {
         if (((!widget.rtl) &&
                 (getValueByPositionIgnoreOffset(__axisPosTmp!) >
                         steps.from! - _widgetStep! / 2 &&
@@ -1363,7 +1363,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
   double? _findSmallestIgnorePoint({ignoreBeyondBoundaries = false}) {
     double? ignorePoint = _realMax;
     bool beyondBoundaries = false;
-    for (FlutterRangeSliderIgnoreSteps steps in _ignoreSteps) {
+    for (RangeSliderFlutterIgnoreSteps steps in _ignoreSteps) {
       if (steps.from! < _realMin!) beyondBoundaries = true;
       if (steps.from! < ignorePoint! && steps.from! >= _realMin!)
         ignorePoint = steps.from! - _widgetStep!;
@@ -1384,7 +1384,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
   double? _findBiggestIgnorePoint({ignoreBeyondBoundaries = false}) {
     double? ignorePoint = _realMin;
     bool beyondBoundaries = false;
-    for (FlutterRangeSliderIgnoreSteps steps in _ignoreSteps) {
+    for (RangeSliderFlutterIgnoreSteps steps in _ignoreSteps) {
       if (steps.to! > _realMax!) beyondBoundaries = true;
 
       if (steps.to! > ignorePoint! && steps.to! <= _realMax!)
@@ -1433,7 +1433,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
   void _checkRangeStep(double realValue) {
     double? sliderFromRange, sliderToRange;
     if (widget.step.rangeList != null) {
-      for (FlutterRangeSliderRangeStep rangeStep in widget.step.rangeList!) {
+      for (RangeSliderFlutterRangeStep rangeStep in widget.step.rangeList!) {
         if (widget.step.isPercentRange) {
           sliderFromRange = _widgetMax! * rangeStep.from! / 100;
           sliderToRange = _widgetMax! * rangeStep.to! / 100;
@@ -1994,7 +1994,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
       mainAxisSize: MainAxisSize.min,
       children: children,
     );
-    if (_tooltipData.direction == FlutterRangeSliderTooltipDirection.top) {
+    if (_tooltipData.direction == RangeSliderFlutterTooltipDirection.top) {
       _tooltipHolderWidget = Row(
         mainAxisSize: MainAxisSize.max,
         children: children,
@@ -2024,17 +2024,17 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
 
     double? top, right, bottom, left;
     switch (_tooltipData.direction) {
-      case FlutterRangeSliderTooltipDirection.top:
+      case RangeSliderFlutterTooltipDirection.top:
         top = 0;
         left = 0;
         right = 0;
         break;
-      case FlutterRangeSliderTooltipDirection.left:
+      case RangeSliderFlutterTooltipDirection.left:
         left = 0;
         top = 0;
         bottom = 0;
         break;
-      case FlutterRangeSliderTooltipDirection.right:
+      case RangeSliderFlutterTooltipDirection.right:
         right = 0;
         top = 0;
         bottom = 0;
@@ -2292,7 +2292,7 @@ class _MakeHandler extends StatelessWidget {
   final double? width;
   final double? height;
   final GlobalKey? id;
-  final FlutterRangeSliderHandler? handlerData;
+  final RangeSliderFlutterHandler? handlerData;
   final bool? visibleTouchArea;
   final Animation? animation;
   final Axis? axis;
@@ -2322,8 +2322,8 @@ class _MakeHandler extends StatelessWidget {
     localHeight = height! + (touchSize! * 4);
     localWidth = width! + (touchSize! * 4);
 
-    FlutterRangeSliderHandler handler =
-        handlerData ?? FlutterRangeSliderHandler();
+    RangeSliderFlutterHandler handler =
+        handlerData ?? RangeSliderFlutterHandler();
 
     if (handlerIndex == 2) {
       handler.child ??= Icon(
@@ -2383,7 +2383,7 @@ class _MakeHandler extends StatelessWidget {
   }
 }
 
-class FlutterRangeSliderHandler {
+class RangeSliderFlutterHandler {
   BoxDecoration? decoration;
   BoxDecoration? foregroundDecoration;
   Matrix4? transform;
@@ -2391,7 +2391,7 @@ class FlutterRangeSliderHandler {
   bool disabled;
   double opacity;
 
-  FlutterRangeSliderHandler(
+  RangeSliderFlutterHandler(
       {this.child,
       this.decoration,
       this.foregroundDecoration,
@@ -2415,11 +2415,11 @@ class FlutterRangeSliderHandler {
   }
 }
 
-class FlutterRangeSliderTooltip {
+class RangeSliderFlutterTooltip {
   Widget Function(dynamic value)? custom;
   String Function(String value)? format;
   TextStyle? textStyle;
-  FlutterRangeSliderTooltipBox? boxStyle;
+  RangeSliderFlutterTooltipBox? boxStyle;
   Widget? leftPrefix;
   Widget? leftSuffix;
   Widget? rightPrefix;
@@ -2427,10 +2427,10 @@ class FlutterRangeSliderTooltip {
   bool? alwaysShowTooltip;
   bool? disabled;
   bool? disableAnimation;
-  FlutterRangeSliderTooltipDirection? direction;
-  FlutterRangeSliderTooltipPositionOffset? positionOffset;
+  RangeSliderFlutterTooltipDirection? direction;
+  RangeSliderFlutterTooltipPositionOffset? positionOffset;
 
-  FlutterRangeSliderTooltip({
+  RangeSliderFlutterTooltip({
     this.custom,
     this.format,
     this.textStyle,
@@ -2472,13 +2472,13 @@ class FlutterRangeSliderTooltip {
   }
 }
 
-class FlutterRangeSliderTooltipPositionOffset {
+class RangeSliderFlutterTooltipPositionOffset {
   double? top;
   double? left;
   double? right;
   double? bottom;
 
-  FlutterRangeSliderTooltipPositionOffset(
+  RangeSliderFlutterTooltipPositionOffset(
       {this.top, this.left, this.right, this.bottom});
 
   @override
@@ -2493,12 +2493,12 @@ class FlutterRangeSliderTooltipPositionOffset {
   }
 }
 
-class FlutterRangeSliderTooltipBox {
+class RangeSliderFlutterTooltipBox {
   final BoxDecoration? decoration;
   final BoxDecoration? foregroundDecoration;
   final Matrix4? transform;
 
-  const FlutterRangeSliderTooltipBox(
+  const RangeSliderFlutterTooltipBox(
       {this.decoration, this.foregroundDecoration, this.transform});
 
   @override
@@ -2511,7 +2511,7 @@ class FlutterRangeSliderTooltipBox {
   }
 }
 
-class FlutterRangeSliderTrackBar {
+class RangeSliderFlutterTrackBar {
   final BoxDecoration? inactiveTrackBar;
   final BoxDecoration? activeTrackBar;
   final Color activeDisabledTrackBarColor;
@@ -2521,7 +2521,7 @@ class FlutterRangeSliderTrackBar {
   final Widget? centralWidget;
   final bool activeTrackBarDraggable;
 
-  const FlutterRangeSliderTrackBar({
+  const RangeSliderFlutterTrackBar({
     this.inactiveTrackBar,
     this.activeTrackBar,
     this.activeDisabledTrackBarColor = const Color(0xffb5b5b5),
@@ -2550,11 +2550,11 @@ class FlutterRangeSliderTrackBar {
   }
 }
 
-class FlutterRangeSliderIgnoreSteps {
+class RangeSliderFlutterIgnoreSteps {
   final double? from;
   final double? to;
 
-  FlutterRangeSliderIgnoreSteps({this.from, this.to})
+  RangeSliderFlutterIgnoreSteps({this.from, this.to})
       : assert(from != null && to != null && from <= to);
 
   @override
@@ -2563,11 +2563,11 @@ class FlutterRangeSliderIgnoreSteps {
   }
 }
 
-class FlutterRangeSliderFixedValue {
+class RangeSliderFlutterFixedValue {
   final int? percent;
   final dynamic value;
 
-  FlutterRangeSliderFixedValue({this.percent, this.value})
+  RangeSliderFlutterFixedValue({this.percent, this.value})
       : assert(
             percent != null && value != null && percent >= 0 && percent <= 100);
 
@@ -2577,13 +2577,13 @@ class FlutterRangeSliderFixedValue {
   }
 }
 
-class FlutterRangeSliderHandlerAnimation {
+class RangeSliderFlutterHandlerAnimation {
   final Curve curve;
   final Curve? reverseCurve;
   final Duration duration;
   final double scale;
 
-  const FlutterRangeSliderHandlerAnimation(
+  const RangeSliderFlutterHandlerAnimation(
       {this.curve = Curves.elasticOut,
       this.reverseCurve,
       this.duration = const Duration(milliseconds: 700),
@@ -2601,19 +2601,19 @@ class FlutterRangeSliderHandlerAnimation {
   }
 }
 
-class FlutterRangeSliderHatchMark {
+class RangeSliderFlutterHatchMark {
   bool disabled;
   double density;
   double? linesDistanceFromTrackBar;
   double? labelsDistanceFromTrackBar;
-  List<FlutterRangeSliderHatchMarkLabel>? labels;
-  FlutterRangeSliderSizedBox? smallLine;
-  FlutterRangeSliderSizedBox? bigLine;
-  FlutterRangeSliderSizedBox? labelBox;
-  FlutterRangeSliderHatchMarkAlignment linesAlignment;
+  List<RangeSliderFlutterHatchMarkLabel>? labels;
+  RangeSliderFlutterSizedBox? smallLine;
+  RangeSliderFlutterSizedBox? bigLine;
+  RangeSliderFlutterSizedBox? labelBox;
+  RangeSliderFlutterHatchMarkAlignment linesAlignment;
   bool? displayLines;
 
-  FlutterRangeSliderHatchMark(
+  RangeSliderFlutterHatchMark(
       {this.disabled = false,
       this.density = 1,
       this.linesDistanceFromTrackBar,
@@ -2621,7 +2621,7 @@ class FlutterRangeSliderHatchMark {
       this.labels,
       this.smallLine,
       this.bigLine,
-      this.linesAlignment = FlutterRangeSliderHatchMarkAlignment.right,
+      this.linesAlignment = RangeSliderFlutterHatchMarkAlignment.right,
       this.labelBox,
       this.displayLines})
       : assert(density > 0 && density <= 2);
@@ -2650,11 +2650,11 @@ class FlutterRangeSliderHatchMark {
   }
 }
 
-class FlutterRangeSliderHatchMarkLabel {
+class RangeSliderFlutterHatchMarkLabel {
   final double? percent;
   final Widget? label;
 
-  FlutterRangeSliderHatchMarkLabel({
+  RangeSliderFlutterHatchMarkLabel({
     this.percent,
     this.label,
   }) : assert((label == null && percent == null) ||
@@ -2666,14 +2666,14 @@ class FlutterRangeSliderHatchMarkLabel {
   }
 }
 
-class FlutterRangeSliderSizedBox {
+class RangeSliderFlutterSizedBox {
   final BoxDecoration? decoration;
   final BoxDecoration? foregroundDecoration;
   final Matrix4? transform;
   final double width;
   final double height;
 
-  const FlutterRangeSliderSizedBox(
+  const RangeSliderFlutterSizedBox(
       {this.decoration,
       this.foregroundDecoration,
       this.transform,
@@ -2695,12 +2695,12 @@ class FlutterRangeSliderSizedBox {
   }
 }
 
-class FlutterRangeSliderStep {
+class RangeSliderFlutterStep {
   final double step;
   final bool isPercentRange;
-  final List<FlutterRangeSliderRangeStep>? rangeList;
+  final List<RangeSliderFlutterRangeStep>? rangeList;
 
-  const FlutterRangeSliderStep({
+  const RangeSliderFlutterStep({
     this.step = 1,
     this.isPercentRange = true,
     this.rangeList,
@@ -2716,12 +2716,12 @@ class FlutterRangeSliderStep {
   }
 }
 
-class FlutterRangeSliderRangeStep {
+class RangeSliderFlutterRangeStep {
   final double? from;
   final double? to;
   final double? step;
 
-  FlutterRangeSliderRangeStep({
+  RangeSliderFlutterRangeStep({
     this.from,
     this.to,
     this.step,
@@ -2733,5 +2733,5 @@ class FlutterRangeSliderRangeStep {
   }
 }
 
-enum FlutterRangeSliderTooltipDirection { top, left, right }
-enum FlutterRangeSliderHatchMarkAlignment { left, right }
+enum RangeSliderFlutterTooltipDirection { top, left, right }
+enum RangeSliderFlutterHatchMarkAlignment { left, right }
