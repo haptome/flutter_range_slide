@@ -41,6 +41,7 @@ class FlutterRangeSlider extends StatefulWidget {
   final double? textPositionTop;
   final double? textPositionBottom;
   final double? fontSize;
+  final Color? textBackgroundColor;
 
   FlutterRangeSlider(
       {this.key,
@@ -78,6 +79,7 @@ class FlutterRangeSlider extends StatefulWidget {
       this.textPositionTop = -60,
       this.textPositionBottom = 0,
       this.fontSize = 12,
+      this.textBackgroundColor = Colors.white,
       this.foregroundDecoration})
       : assert(touchSize == null || (touchSize >= 5 && touchSize <= 50)),
         assert((ignoreSteps.length > 0 && step.rangeList == null) ||
@@ -754,7 +756,7 @@ class _FlutterRangeSliderState extends State<FlutterRangeSlider>
         FlutterRangeSliderTooltipBox(
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.black12, width: 0.5),
-                color: Color(0xffffffff)));
+                color: widget.textBackgroundColor));
     _tooltipData.textStyle = widgetTooltip.textStyle ??
         TextStyle(fontSize: widget.fontSize, color: Colors.black38);
     _tooltipData.leftPrefix = widgetTooltip.leftPrefix ?? null;
