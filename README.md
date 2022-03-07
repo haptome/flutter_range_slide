@@ -18,7 +18,7 @@ dependencies:
 ```
 
 ```dart
-import 'package:flutter_range_slider/flutter_range_slider.dart';
+import 'package:range_slider_flutter/range_slider_flutter.dart';
 ```
 
 ## How to use it
@@ -29,17 +29,17 @@ import 'package:flutter_range_slider/flutter_range_slider.dart';
 ## basic implementation
 
 ```dart
- FlutterRangeSlider(
+ RangeSliderFlutter(
             // key: Key('3343'),
             values: [_lowerValue, _upperValue],
             rangeSlider: true,
-            tooltip: FlutterRangeSliderTooltip(
+            tooltip: RangeSliderFlutterTooltip(
               alwaysShowTooltip: true,
             ),
             max: 20000,
             textPositionTop: -100,
             handlerHeight: 30,
-            trackBar: FlutterRangeSliderTrackBar(
+            trackBar:RangeSliderFlutterTrackBar(
               activeTrackBarHeight: 10,
               inactiveTrackBarHeight: 10,
               activeTrackBar: BoxDecoration(
