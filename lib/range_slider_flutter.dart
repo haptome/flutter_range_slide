@@ -42,6 +42,8 @@ class RangeSliderFlutter extends StatefulWidget {
   final double? textPositionBottom;
   final double? fontSize;
   final Color? textBackgroundColor;
+  final Color? textColor;
+  final String? suffixText;
 
   RangeSliderFlutter(
       {this.key,
@@ -80,6 +82,8 @@ class RangeSliderFlutter extends StatefulWidget {
       this.textPositionBottom = 0,
       this.fontSize = 12,
       this.textBackgroundColor = Colors.white,
+      this.textColor = Colors.white,
+      this.suffixText = '',
       this.foregroundDecoration})
       : assert(touchSize == null || (touchSize >= 5 && touchSize <= 50)),
         assert((ignoreSteps.length > 0 && step.rangeList == null) ||
@@ -758,7 +762,7 @@ class _RangeSliderFlutterState extends State<RangeSliderFlutter>
                 border: Border.all(color: Colors.black12, width: 0.5),
                 color: widget.textBackgroundColor));
     _tooltipData.textStyle = widgetTooltip.textStyle ??
-        TextStyle(fontSize: widget.fontSize, color: Colors.black38);
+        TextStyle(fontSize: widget.fontSize, color: widget.textColor);
     _tooltipData.leftPrefix = widgetTooltip.leftPrefix ?? null;
     _tooltipData.leftSuffix = widgetTooltip.leftSuffix ?? null;
     _tooltipData.rightPrefix = widgetTooltip.rightPrefix ?? null;
@@ -863,27 +867,31 @@ class _RangeSliderFlutterState extends State<RangeSliderFlutter>
     ], color: Colors.white, shape: BoxShape.circle);
 
     rightHandler = _MakeHandler(
-        animation: _rightHandlerScaleAnimation,
-        id: rightHandlerKey,
-        visibleTouchArea: widget.visibleTouchArea,
-        handlerData: widget.rightHandler,
-        width: _handlersWidth,
-        height: _handlersHeight,
-        axis: widget.axis,
-        handlerIndex: 2,
-        touchSize: _touchSize);
+      animation: _rightHandlerScaleAnimation,
+      id: rightHandlerKey,
+      visibleTouchArea: widget.visibleTouchArea,
+      handlerData: widget.rightHandler,
+      width: _handlersWidth,
+      height: _handlersHeight,
+      axis: widget.axis,
+      handlerIndex: 2,
+      touchSize: _touchSize,
+      boxColor: widget.textBackgroundColor,
+    );
 
     leftHandler = _MakeHandler(
-        animation: _leftHandlerScaleAnimation,
-        id: leftHandlerKey,
-        visibleTouchArea: widget.visibleTouchArea,
-        handlerData: widget.handler,
-        width: _handlersWidth,
-        height: _handlersHeight,
-        rtl: widget.rtl,
-        rangeSlider: widget.rangeSlider,
-        axis: widget.axis,
-        touchSize: _touchSize);
+      animation: _leftHandlerScaleAnimation,
+      id: leftHandlerKey,
+      visibleTouchArea: widget.visibleTouchArea,
+      handlerData: widget.handler,
+      width: _handlersWidth,
+      height: _handlersHeight,
+      rtl: widget.rtl,
+      rangeSlider: widget.rangeSlider,
+      axis: widget.axis,
+      touchSize: _touchSize,
+      boxColor: widget.textBackgroundColor,
+    );
 
     if (widget.rangeSlider == false) {
       rightHandler = leftHandler;
@@ -2300,6 +2308,7 @@ class _MakeHandler extends StatelessWidget {
   final bool rtl;
   final bool rangeSlider;
   final double? touchSize;
+  final Color? boxColor;
 
   _MakeHandler(
       {this.id,
@@ -2312,7 +2321,8 @@ class _MakeHandler extends StatelessWidget {
       this.rangeSlider = false,
       this.axis,
       this.handlerIndex,
-      this.touchSize});
+      this.touchSize,
+      this.boxColor});
 
   @override
   Widget build(BuildContext context) {
@@ -2328,7 +2338,7 @@ class _MakeHandler extends StatelessWidget {
     if (handlerIndex == 2) {
       handler.child ??= Icon(
           (axis == Axis.horizontal) ? Icons.chevron_left : Icons.expand_less,
-          color: Colors.white);
+          color: Colors.transparent);
     } else {
       IconData hIcon =
           (axis == Axis.horizontal) ? Icons.chevron_right : Icons.expand_more;
@@ -2336,7 +2346,7 @@ class _MakeHandler extends StatelessWidget {
         hIcon =
             (axis == Axis.horizontal) ? Icons.chevron_left : Icons.expand_less;
       }
-      handler.child ??= Icon(hIcon, color: Colors.white);
+      handler.child ??= Icon(hIcon, color: Colors.transparent);
     }
 
     handler.decoration ??= BoxDecoration(boxShadow: [
@@ -2345,7 +2355,7 @@ class _MakeHandler extends StatelessWidget {
           blurRadius: 1,
           spreadRadius: 0.2,
           offset: Offset(0, 1))
-    ], color: Colors.white, shape: BoxShape.circle);
+    ], color: boxColor, shape: BoxShape.circle);
 
     return Center(
       child: Container(
