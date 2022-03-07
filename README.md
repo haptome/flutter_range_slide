@@ -54,7 +54,7 @@ import 'package:flutter_range_slider/flutter_range_slider.dart';
 
             min: 0,
             fontSize: 15,
-
+            textBackgroundColor:Colors.red,
             onDragging: (handlerIndex, lowerValue, upperValue) {
               _lowerValue = lowerValue;
               _upperValue = upperValue;
@@ -76,3 +76,4 @@ The constructor has 17 attributes related to the Widget:
 - `min`: Min Range.
 - `fontSize`: label Font Size.
 - `onDragging`:Callback function on Slider value changed.
+- `textBackgroundColor:`Colors of the container which holds the text.
