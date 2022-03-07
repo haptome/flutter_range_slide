@@ -50,13 +50,18 @@ class _MyHomePageState extends State<MyHomePage> {
           child: RangeSliderFlutter(
             // key: Key('3343'),
             values: [_lowerValue, _upperValue],
+
             rangeSlider: true,
             tooltip: RangeSliderFlutterTooltip(
               alwaysShowTooltip: true,
+              rightSuffix: Text(" Br"),
+              leftSuffix: Text(" Br"),
             ),
             max: 20000,
             textPositionTop: -100,
-            handlerHeight: 30,
+            handlerHeight: 27,
+            textBackgroundColor: Colors.red,
+
             trackBar: RangeSliderFlutterTrackBar(
               activeTrackBarHeight: 10,
               inactiveTrackBarHeight: 10,
@@ -69,7 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.grey,
               ),
             ),
-
+            // handler: RangeSliderFlutterHandler(
+            //   decoration: BoxDecoration(
+            //     color: Colors.yellow,
+            //     borderRadius: BorderRadius.circular(10),
+            //   ),
+            // ),
             min: 0,
             fontSize: 15,
 
