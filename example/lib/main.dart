@@ -47,17 +47,17 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Container(
           margin: EdgeInsets.only(top: 20, left: 20, right: 20),
           alignment: Alignment.centerLeft,
-          child: FlutterRangeSlider(
+          child: RangeSliderFlutter(
             // key: Key('3343'),
             values: [_lowerValue, _upperValue],
             rangeSlider: true,
-            tooltip: FlutterRangeSliderTooltip(
+            tooltip: RangeSliderFlutterTooltip(
               alwaysShowTooltip: true,
             ),
             max: 20000,
             textPositionTop: -100,
             handlerHeight: 30,
-            trackBar: FlutterRangeSliderTrackBar(
+            trackBar: RangeSliderFlutterTrackBar(
               activeTrackBarHeight: 10,
               inactiveTrackBarHeight: 10,
               activeTrackBar: BoxDecoration(
